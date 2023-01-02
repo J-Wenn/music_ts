@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.ts'] }],
-    'react/display-name': 'off'
+    'react/display-name': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }

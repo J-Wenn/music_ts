@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import { memo, Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
+import NavBar from './c-cpns/nav-bar'
 
 interface IProps {
   children?: ReactNode
@@ -9,7 +10,7 @@ interface IProps {
 const Discover: FC<IProps> = memo(() => {
   return (
     <div>
-      <div>导航</div>
+      <NavBar />
       <Suspense fallback="">
         <Outlet />
       </Suspense>
