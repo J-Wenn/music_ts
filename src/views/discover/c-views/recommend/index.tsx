@@ -3,8 +3,14 @@ import type { FC, ReactNode } from 'react'
 import { memo, useEffect } from 'react'
 import { fetchBannerDataAction } from './store'
 
+import HotRecommend from './c-cpns/hot-recommend'
 import TopBanner from './c-cpns/top-banner'
-import { RecommendWrapper } from './style'
+import {
+  Content,
+  RecommendLeft,
+  RecommendRight,
+  RecommendWrapper
+} from './style'
 
 interface IProps {
   children?: ReactNode
@@ -19,6 +25,12 @@ const Recommend: FC<IProps> = memo(() => {
   return (
     <RecommendWrapper>
       <TopBanner />
+      <Content className="wrap-v2">
+        <RecommendLeft>
+          <HotRecommend />
+        </RecommendLeft>
+        <RecommendRight></RecommendRight>
+      </Content>
     </RecommendWrapper>
   )
 })

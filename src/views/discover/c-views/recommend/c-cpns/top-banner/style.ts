@@ -21,7 +21,7 @@ export const BannerLeft = styled.div`
   .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
-    background-color: #cbcfcd;
+    background-color: #f9f9a9;
     margin: 0 8px !important;
     &.swiper-pagination-bullet-active {
       background-color: #f00;

@@ -1,10 +1,10 @@
 import { useAppSelector } from '@/store'
 import type { FC, ReactNode } from 'react'
-import { memo } from 'react'
+import { memo, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 
-import { Autoplay, EffectFade, Pagination } from 'swiper'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { BannerControl, BannerLeft, BannerRight, BannerWrapper } from './style'
 
 interface IProps {
@@ -12,21 +12,30 @@ interface IProps {
 }
 
 const TopBanner: FC<IProps> = memo(() => {
+  const [realIndex, setRealIndex] = useState<number>(7)
+
   const { banners } = useAppSelector(
     (state) => ({
       banners: state.recommend.banners
     }),
     shallowEqual
   )
-  const swiper = useSwiper()
+  const prevRef = useRef<HTMLButtonElement>(null)
+  const nextRef = useRef<HTMLButtonElement>(null)
+
+  const bgImage = banners[realIndex]?.imageUrl + '?imageView&blur=40x20'
 
   return (
-    <BannerWrapper>
+    <BannerWrapper
+      style={{
+        background: `url(${bgImage}) center center / 6000px`
+      }}
+    >
       <div className="banner wrap-v2">
         <BannerLeft>
           <Swiper
             loop={true}
-            modules={[EffectFade, Autoplay, Pagination]}
+            modules={[Navigation, EffectFade, Autoplay, Pagination]}
             pagination={{
               clickable: true
             }}
@@ -37,6 +46,11 @@ const TopBanner: FC<IProps> = memo(() => {
             fadeEffect={{
               crossFade: true
             }}
+            navigation={{
+              nextEl: nextRef.current,
+              prevEl: prevRef.current
+            }}
+            onActiveIndexChange={({ realIndex }) => setRealIndex(realIndex)}
           >
             {banners.map((item) => {
               return (
@@ -49,14 +63,8 @@ const TopBanner: FC<IProps> = memo(() => {
         </BannerLeft>
         <BannerRight />
         <BannerControl>
-          <button
-            className="btn left"
-            onClick={() => swiper.slidePrev()}
-          ></button>
-          <button
-            className="btn right"
-            onClick={() => swiper.slideNext()}
-          ></button>
+          <button className="btn left" ref={prevRef}></button>
+          <button className="btn right" ref={nextRef}></button>
         </BannerControl>
       </div>
     </BannerWrapper>
